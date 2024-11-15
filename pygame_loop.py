@@ -58,6 +58,34 @@ def paddle_movement(keys, left_paddle, right_paddle):
     if keys[pygame.K_DOWN] and right_paddle.y + PADDLE_HEIGHT + right_paddle.VEL <= WIN_HEIGHT:
         right_paddle.move(up=False)
 
+
+# Function that will detect which part of the paddle the ball hit
+# and generate a new y velocity for the ball in the opposite direction
+    # first divide the paddles up into different sections
+    # the paddle hight is 80 so there can be 8 different sections of 10 px 
+    # use a dictionary to create the variables and store the values of y_vel
+def ball_vel_generator(ball, paddle):
+
+    number_of_sections = 8
+    sections = {}    
+    angles = [-4, -3, -2, -1, 1, 2, 3, 4]
+
+    
+    for i in range(number_of_sections):
+        section_top = int(paddle.y + (PADDLE_HEIGHT // number_of_sections) * (i))
+        section_bottom = int(paddle.y + (PADDLE_HEIGHT // number_of_sections) * (i+1))
+        section_name = f"section{i}"
+        sections[section_name] = (section_top, section_bottom, i)
+
+    for section in sections:
+        temp_tuple = sections[section]
+        if ball.y >= temp_tuple[0] and ball.y <= temp_tuple[1]:
+            ball.y_vel = angles[(temp_tuple[2])]
+            break
+        
+
+
+
 def ball_collision(ball, left_paddle, right_paddle):
     # Checking to see if the ball hits the top or bottom of the screen 
     if ball.y + ball.radius >= WIN_HEIGHT:
@@ -73,6 +101,7 @@ def ball_collision(ball, left_paddle, right_paddle):
             # Then if the ball is touching the paddle x position
             if ball.x + ball.radius == right_paddle.x:
                 ball.x_vel *= -1
+                ball_vel_generator(ball, right_paddle)
 
 
     # Check if it is going to the left paddle
@@ -82,7 +111,7 @@ def ball_collision(ball, left_paddle, right_paddle):
             # Then if the ball is touching the paddle x position
             if ball.x - ball.radius == left_paddle.x + PADDLE_WIDTH:
                 ball.x_vel *= -1
-
+                ball_vel_generator(ball, left_paddle)
     
 
 
