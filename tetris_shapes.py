@@ -3,6 +3,19 @@ from tetris_constants import *
 import pygame
 
 
+# Bottom bar of the screen
+class BottomBar:
+    def __init__(self):
+        self.x = 0
+        self.y = HEIGHT - TILE_SIZE
+        self.width = WIDTH
+        self.height = TILE_SIZE
+
+    def draw(self, screen):
+        pygame.draw.rect(screen, GRAY, (self.x, self.y, self.width, self.height))
+
+
+
 # Super Class
 class Shape(ABC):
     def __init__(self, x, y):
@@ -14,11 +27,11 @@ class Shape(ABC):
         pass
 
     @abstractmethod
-    def move(self, dx):
+    def move_side(self, dx):
         pass
 
     def fall(self):
-        self.y += TILE_SIZE
+            self.y += TILE_SIZE
 
     @abstractmethod
     def rotate(self):
@@ -37,7 +50,7 @@ class Square(Shape):
         pygame.draw.rect(screen, self.COLOR, (self.x, self.y, TILE_SIZE * 2, TILE_SIZE * 2))
 
 
-    def move(self, keys):
+    def move_side(self, keys):
         #check to see if the shape is at the edge of the screen
         if self.x > 0:
             if keys[pygame.K_LEFT]:
