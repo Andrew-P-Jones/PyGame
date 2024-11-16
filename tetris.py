@@ -5,10 +5,22 @@ import sys
 pygame.init()
 
 # Set up the display
-screen_width = 800
-screen_height = 600
-screen = pygame.display.set_mode((screen_width, screen_height))
+BLACK = (0, 0, 0)
+WHITE = (255, 255, 255)
+GRAY = (128, 128, 128)
+WIDTH = 500
+HEIGHT = 800
+SCREEN = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Tetris")
+tile_size = 25
+
+def draw_grid(tile_size):
+    for x in range(tile_size, WIDTH, tile_size):
+        pygame.draw.line(SCREEN, GRAY, (x, 0), (x, HEIGHT))
+
+    for y in range(tile_size, HEIGHT, tile_size):
+        pygame.draw.line(SCREEN, GRAY, (0, y), (WIDTH, y))
+
 
 # Main game loop
 running = True
@@ -17,12 +29,14 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
-    # Fill the screen with a color (black)
-    screen.fill((0, 0, 0))
+    # Logical updates
 
-    # Update the display
+
+    # Fill the SCREEN with a color
+    SCREEN.fill(BLACK)
+    draw_grid(tile_size)
     pygame.display.flip()
-
+    
 # Quit Pygame
 pygame.quit()
 sys.exit()
