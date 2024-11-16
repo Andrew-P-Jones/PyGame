@@ -4,6 +4,7 @@
 WIDTH = 500
 HEIGHT = 800
 TILE_SIZE = 25
+DOWN_SPEED = 1000 # 1 second
 
 # Basic colors
 BLACK = (0, 0, 0)

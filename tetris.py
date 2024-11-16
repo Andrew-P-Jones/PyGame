@@ -1,5 +1,4 @@
-import pygame
-import sys
+import pygame, sys, random, time
 from tetris_constants import *
 from tetris_shapes import Square
 
@@ -17,8 +16,12 @@ def draw_grid(TILE_SIZE):
 
     for y in range(TILE_SIZE, HEIGHT, TILE_SIZE):
         pygame.draw.line(SCREEN, GRAY, (0, y), (WIDTH, y))
+#Create the falling event
+move_down_event = pygame.USEREVENT + 1
+pygame.time.set_timer(move_down_event, DOWN_SPEED)
 
 
+# Create shapes
 square1 = Square(6, 0)
 
 
@@ -28,7 +31,8 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-
+        elif event.type == move_down_event:
+            square1.fall()
     # Logical updates
 
 
