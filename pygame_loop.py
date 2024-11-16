@@ -79,7 +79,12 @@ def ball_vel_generator(ball, paddle):
 
     number_of_sections = 8
     sections = {}    
-    angles = [-5, -3, -3, -1, 1, 3, 3, 5]
+    angles = [-7, -5, -3, -1, 1, 3, 5, 7]
+    
+    ## Generate the list of angles based on the number of sections specified
+    # max_vel = len(number_of_sections)//2
+    # for number in number_of_sections:
+        
 
     
     for i in range(number_of_sections):
