@@ -1,25 +1,25 @@
 import pygame
 import sys
+from tetris_constants import *
+from tetris_shapes import Square
 
 # Initialize Pygame
 pygame.init()
 
 # Set up the display
-BLACK = (0, 0, 0)
-WHITE = (255, 255, 255)
-GRAY = (128, 128, 128)
-WIDTH = 500
-HEIGHT = 800
 SCREEN = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Tetris")
-tile_size = 25
 
-def draw_grid(tile_size):
-    for x in range(tile_size, WIDTH, tile_size):
+
+def draw_grid(TILE_SIZE):
+    for x in range(TILE_SIZE, WIDTH, TILE_SIZE):
         pygame.draw.line(SCREEN, GRAY, (x, 0), (x, HEIGHT))
 
-    for y in range(tile_size, HEIGHT, tile_size):
+    for y in range(TILE_SIZE, HEIGHT, TILE_SIZE):
         pygame.draw.line(SCREEN, GRAY, (0, y), (WIDTH, y))
+
+
+square1 = Square(6, 0)
 
 
 # Main game loop
@@ -34,7 +34,11 @@ while running:
 
     # Fill the SCREEN with a color
     SCREEN.fill(BLACK)
-    draw_grid(tile_size)
+
+    # Draw Shapes
+    square1.draw(SCREEN)   
+
+    draw_grid(TILE_SIZE)
     pygame.display.flip()
     
 # Quit Pygame
